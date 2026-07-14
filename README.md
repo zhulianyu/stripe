@@ -67,7 +67,6 @@ npm run deploy
 # 设置敏感密钥(交互式,每个执行一次,持久保存在 Worker)
 npx wrangler secret put STRIPE_SECRET_KEY
 npx wrangler secret put STRIPE_WEBHOOK_SECRET
-npx wrangler secret put NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 ```
 
 > Windows 用户请在 WSL 中执行(`wsl` 进入后操作)。
@@ -84,10 +83,9 @@ npx wrangler secret put NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 |--------|------|----------|------|------|
 | `STRIPE_SECRET_KEY` | Secret | Dashboard 或 `wrangler secret put` | Stripe 密钥 | `sk_live_xxx` |
 | `STRIPE_WEBHOOK_SECRET` | Secret | Dashboard 或 `wrangler secret put` | Webhook 签名密钥 | `whsec_xxx` |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Text | Dashboard Variables | Stripe 可发布密钥 | `pk_live_xxx` |
 | `BASE_URL` | Text | `wrangler.jsonc` vars(已配置) | 站点域名 | `https://pay.sinosoft.online` |
 
-> 首次部署(方式一/二)创建 Worker 后,到 Cloudflare Dashboard -> Worker -> **Settings -> Variables and Secrets** 设置上表前 3 个变量。`BASE_URL` 已写在 `wrangler.jsonc`,随部署自动生效。
+> 首次部署(方式一/二)创建 Worker 后,到 Cloudflare Dashboard -> Worker -> **Settings -> Variables and Secrets** 设置上表前 2 个变量。`BASE_URL` 已写在 `wrangler.jsonc`,随部署自动生效。
 >
 > `BASE_URL` 用非 `NEXT_PUBLIC_` 前缀,确保运行时读取(不被 build 时内联)。
 
@@ -106,7 +104,6 @@ npx wrangler secret put NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 
 Stripe Dashboard -> Developers -> API keys:
 
-- `Publishable key` -> `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
 - `Secret key` -> `STRIPE_SECRET_KEY`
 
 ### 2. 启用支付方式
@@ -212,7 +209,7 @@ wrangler.jsonc                    # Cloudflare Worker 配置(含自定义域名)
 
 ## 注意事项
 
-- 测试环境用 `sk_test_` / `pk_test_` 密钥;上线前切换为 `sk_live_` / `pk_live_`
+- 测试环境用 `sk_test_` 密钥;上线前切换为 `sk_live_`
 - 微信支付在 Checkout 页面以二维码形式展示(已配置 `client: "web"`)
 - 支付宝会跳转支付宝 App 或网页完成付款
 - OpenNext 本地构建不支持 Windows 原生,请用 GitHub Actions(方式一)或 WSL

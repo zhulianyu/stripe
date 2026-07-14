@@ -6,7 +6,6 @@ NEXTJS_ENV=development
 
 # Stripe 密钥(从 Stripe Dashboard -> Developers -> API keys 获取)
 STRIPE_SECRET_KEY=sk_test_xxx
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_xxx
 
 # Stripe Webhook 签名密钥
 STRIPE_WEBHOOK_SECRET=whsec_xxx
