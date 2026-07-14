@@ -1,0 +1,35 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"main": ".open-next/worker.js",
+	"name": "stripe-payment",
+	"compatibility_date": "2026-07-14",
+	"compatibility_flags": [
+		"nodejs_compat",
+		"global_fetch_strictly_public"
+	],
+	"assets": {
+		"directory": ".open-next/assets",
+		"binding": "ASSETS"
+	},
+	"vars": {
+		// 非敏感运行时变量(敏感密钥用 `wrangler secret put` 设置,不写在此处)
+		"BASE_URL": "https://pay.sinosoft.online"
+	},
+	// 绑定自定义域名(需 sinosoft.online 已托管在你的 Cloudflare 账户)
+	"routes": [
+		{ "pattern": "pay.sinosoft.online", "custom_domain": true }
+	],
+	"services": [
+		{
+			// Self-reference service binding, the service name must match the worker name
+			// see https://opennext.js.org/cloudflare/caching
+			"binding": "WORKER_SELF_REFERENCE",
+			"service": "stripe-payment"
+		}
+	],
+	"images": {
+		// Enable image optimization
+		// see https://opennext.js.org/cloudflare/howtos/image
+		"binding": "IMAGES"
+	}
+}

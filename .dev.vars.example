@@ -1,0 +1,15 @@
+# Cloudflare Workers 本地开发环境变量(wrangler dev / npm run preview 使用)
+# 复制本文件为 .dev.vars 并填入真实值(.dev.vars 不会被提交)
+
+# OpenNext 开发标记(勿改)
+NEXTJS_ENV=development
+
+# Stripe 密钥(从 Stripe Dashboard -> Developers -> API keys 获取)
+STRIPE_SECRET_KEY=sk_test_xxx
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_xxx
+
+# Stripe Webhook 签名密钥
+STRIPE_WEBHOOK_SECRET=whsec_xxx
+
+# 站点基础 URL(本地预览时用 localhost)
+BASE_URL=http://localhost:3000
